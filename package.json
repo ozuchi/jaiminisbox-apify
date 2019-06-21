@@ -1,0 +1,32 @@
+{
+  "name": "jaiminisbox-apify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index",
+  "types": "dist/index",
+  "scripts": {
+    "tsc": "tsc",
+    "tslint": "tslint",
+    "prettier": "prettier",
+    "clean": "rm -rf ./dist",
+    "dev": "npm run clean && tsc --watch",
+    "build": "npm run clean && tsc",
+    "lint": "tslint -c tslint.json './src/**/*.ts'",
+    "format": "prettier --write './src/**/*.ts'"
+  },
+  "dependencies": {
+    "@types/cheerio": "^0.22.11",
+    "@types/node": "^11.13.4",
+    "@types/request": "^2.48.1",
+    "apify": "^0.14.15",
+    "cheerio": "^1.0.0-rc.3",
+    "cloudscraper": "^3.9.1",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "prettier": "^1.17.0",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.4.3"
+  }
+}
