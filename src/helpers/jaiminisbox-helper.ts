@@ -11,9 +11,16 @@ export class JaiminisboxHelper {
     $('.list .group .element').each((i: number, el: any) => {
       const $item = cheerio.load(el)
       const href = $item('.title a').attr('href')
+      const chapterName = $item('.title a').text()
+      const chapterId = JaiminisboxHelper.getChapterIdFromUrl(href)
+      const chapterNumber = JaiminisboxHelper.getChapterNumberFromId(chapterId)
+
       if (href) {
         chapterLinks.push({
-          relative_path: href,
+          full_path: href,
+          chapter_name: chapterName,
+          chapter_id: chapterId,
+          chapter_number: chapterNumber,
         })
       }
     })
@@ -110,5 +117,28 @@ export class JaiminisboxHelper {
 
   static getSearchUrl(baseUrl: string, query: string, limit = 100): string {
     throw new Error('Not implemented.')
+  }
+
+  static getChapterIdFromUrl(url: string): string | undefined {
+    /**
+     * Turn 'https://jaiminisbox.com/reader/read/dr-stone/en/0/109/'
+     * into '109'
+     */
+    const matchArr = url.match(/\/en\/0\/([0-9]{1,8})\//i)
+    if (!matchArr || matchArr.length < 2) {
+      return undefined
+    }
+    return matchArr[1]
+  }
+
+  static getChapterNumberFromId(id: string | undefined): number | undefined {
+    /**
+     * Turn '109'
+     * into 109
+     */
+    if (!id) {
+      return undefined
+    }
+    return parseFloat(id)
   }
 }

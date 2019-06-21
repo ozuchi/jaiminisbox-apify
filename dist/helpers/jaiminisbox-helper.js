@@ -28,9 +28,15 @@ class JaiminisboxHelper {
         $('.list .group .element').each((i, el) => {
             const $item = cheerio.load(el);
             const href = $item('.title a').attr('href');
+            const chapterName = $item('.title a').text();
+            const chapterId = JaiminisboxHelper.getChapterIdFromUrl(href);
+            const chapterNumber = JaiminisboxHelper.getChapterNumberFromId(chapterId);
             if (href) {
                 chapterLinks.push({
-                    relative_path: href,
+                    full_path: href,
+                    chapter_name: chapterName,
+                    chapter_id: chapterId,
+                    chapter_number: chapterNumber,
                 });
             }
         });
@@ -108,6 +114,19 @@ class JaiminisboxHelper {
     }
     static getSearchUrl(baseUrl, query, limit = 100) {
         throw new Error('Not implemented.');
+    }
+    static getChapterIdFromUrl(url) {
+        const matchArr = url.match(/\/en\/0\/([0-9]{1,8})\//i);
+        if (!matchArr || matchArr.length < 2) {
+            return undefined;
+        }
+        return matchArr[1];
+    }
+    static getChapterNumberFromId(id) {
+        if (!id) {
+            return undefined;
+        }
+        return parseFloat(id);
     }
 }
 exports.JaiminisboxHelper = JaiminisboxHelper;

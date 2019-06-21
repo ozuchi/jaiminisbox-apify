@@ -1,5 +1,8 @@
 export interface ChapterLink {
-    relative_path: string;
+    full_path: string;
+    chapter_name?: string;
+    chapter_id?: string;
+    chapter_number?: number;
 }
 export interface Manga {
     id: string;
@@ -12,5 +15,5 @@ export interface Manga {
 export interface MangaSummary {
     title: string;
     image_url: string;
-    relative_path: string;
+    full_path: string;
 }
